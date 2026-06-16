@@ -3,9 +3,9 @@ import products from "../data/Products"
 
 function Products() {
   return (
-    <div className="min-h-screen bg-gray-50 px-6 py-10">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Food Products</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div style={{ minHeight: "100vh", background: "#f3f4f6", padding: "40px 20px" }}>
+      <h1 style={{ color: "#1f2937", marginBottom: "30px" }}>Food Products</h1>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "20px" }}>
         {products.map((product) => (
           <ProductCard
             key={product.id}

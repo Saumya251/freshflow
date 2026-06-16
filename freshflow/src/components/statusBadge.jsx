@@ -1,12 +1,12 @@
 function StatusBadge({ status }) {
   const colors = {
-    Fresh: "bg-green-100 text-green-700",
-    Processing: "bg-yellow-100 text-yellow-700",
-    Shipped: "bg-blue-100 text-blue-700",
+    Fresh: { background: "#dcfce7", color: "#16a34a" },
+    Processing: { background: "#fef9c3", color: "#ca8a04" },
+    Shipped: { background: "#dbeafe", color: "#2563eb" },
   }
 
   return (
-    <span className={`px-3 py-1 rounded-full text-sm font-medium ${colors[status]}`}>
+    <span style={{ ...colors[status], padding: "4px 12px", borderRadius: "20px", fontSize: "0.85rem", fontWeight: "500" }}>
       {status}
     </span>
   )
