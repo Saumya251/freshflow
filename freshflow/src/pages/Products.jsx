@@ -19,8 +19,17 @@ function Products() {
       })
   }, [])
 
-  if (loading) return <div style={{ padding: "40px", textAlign: "center" }}>Loading...</div>
-  if (error) return <div style={{ padding: "40px", color: "red" }}>{error}</div>
+  if (loading) return (
+    <div style={{ padding: "40px", textAlign: "center", fontSize: "1.2rem" }}>
+      Loading products...
+    </div>
+  )
+
+  if (error) return (
+    <div style={{ padding: "40px", color: "red", textAlign: "center" }}>
+      {error}
+    </div>
+  )
 
   return (
     <div style={{ minHeight: "100vh", background: "#f3f4f6", padding: "40px 20px" }}>
