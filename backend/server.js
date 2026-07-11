@@ -1,9 +1,12 @@
 const express = require("express")
 const cors = require("cors")
 const mongoose = require("mongoose")
+const rateLimit = require("express-rate-limit")
 require("dotenv").config()
 
 const Product = require("./models/Product")
+const authRoutes = require("./routes/auth")
+const requireAuth = require("./middleware/requireAuth")
 
 const app = express()
 const PORT = process.env.PORT || 5000
@@ -17,9 +20,19 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected successfully"))
   .catch((err) => console.error("❌ MongoDB connection error:", err))
 
-// ─── ROUTES ───────────────────────────────────────────
+// Rate limiting for auth endpoints
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: { message: "Too many attempts. Try again in 15 minutes." }
+})
 
-// GET all products
+// Auth routes
+app.use("/api/auth", authLimiter, authRoutes)
+
+// ─── PRODUCT ROUTES ───────────────────────────────────
+
+// GET all products — public
 app.get("/api/products", async (req, res) => {
   try {
     const products = await Product.find()
@@ -29,7 +42,19 @@ app.get("/api/products", async (req, res) => {
   }
 })
 
-// GET single product by id
+// GET search products — public
+app.get("/api/products/search", async (req, res) => {
+  try {
+    const query = req.query.q
+    if (!query) return res.status(400).json({ message: "Search query required" })
+    const results = await Product.find({ name: { $regex: query, $options: "i" } })
+    res.status(200).json(results)
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message })
+  }
+})
+
+// GET single product — public
 app.get("/api/products/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id)
@@ -40,26 +65,23 @@ app.get("/api/products/:id", async (req, res) => {
   }
 })
 
-// POST create new product
-app.post("/api/products", async (req, res) => {
+// POST create product — protected
+app.post("/api/products", requireAuth, async (req, res) => {
   try {
-    console.log("POST request received:", req.body)
     const { name, origin, status, date } = req.body
     if (!name || !origin || !date) {
       return res.status(400).json({ message: "Name, origin, and date are required" })
     }
     const newProduct = new Product({ name, origin, status, date })
     const savedProduct = await newProduct.save()
-    console.log("Product saved successfully:", savedProduct)
     res.status(201).json(savedProduct)
   } catch (err) {
-    console.error("Error saving product:", err.message)
     res.status(500).json({ message: "Server error", error: err.message })
   }
 })
 
-// PUT update a product
-app.put("/api/products/:id", async (req, res) => {
+// PUT update product — protected
+app.put("/api/products/:id", requireAuth, async (req, res) => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
@@ -73,24 +95,12 @@ app.put("/api/products/:id", async (req, res) => {
   }
 })
 
-// DELETE a product
-app.delete("/api/products/:id", async (req, res) => {
+// DELETE product — protected
+app.delete("/api/products/:id", requireAuth, async (req, res) => {
   try {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id)
     if (!deletedProduct) return res.status(404).json({ message: "Product not found" })
     res.status(204).send()
-  } catch (err) {
-    res.status(500).json({ message: "Server error", error: err.message })
-  }
-})
-
-// GET search products by name
-app.get("/api/products/search", async (req, res) => {
-  try {
-    const query = req.query.q
-    if (!query) return res.status(400).json({ message: "Search query required" })
-    const results = await Product.find({ name: { $regex: query, $options: "i" } })
-    res.status(200).json(results)
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message })
   }
