@@ -40,21 +40,24 @@ function Products() {
   }
 
   // Handle form submit
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setSubmitting(true)
-    try {
-      await axios.post("http://localhost:5000/api/products", formData)
-      setSuccessMsg("Product added successfully!")
-      setFormData({ name: "", origin: "", status: "Fresh", date: "" })
-      setShowForm(false)
-      fetchProducts()
-      setTimeout(() => setSuccessMsg(""), 3000)
-    } catch (err) {
-      setError("Failed to add product")
-    }
-    setSubmitting(false)
+const handleSubmit = async (e) => {
+  e.preventDefault()
+  setSubmitting(true)
+  try {
+    const token = localStorage.getItem("token")
+    await axios.post("http://localhost:5000/api/products", formData, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    setSuccessMsg("Product added successfully!")
+    setFormData({ name: "", origin: "", status: "Fresh", date: "" })
+    setShowForm(false)
+    fetchProducts()
+    setTimeout(() => setSuccessMsg(""), 3000)
+  } catch (err) {
+    setError("Failed to add product. Please login first.")
   }
+  setSubmitting(false)
+}
 
   if (loading) return (
     <div style={{ padding: "40px", textAlign: "center", fontSize: "1.2rem" }}>
