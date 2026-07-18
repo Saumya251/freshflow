@@ -7,6 +7,7 @@ require("dotenv").config()
 const Product = require("./models/Product")
 const authRoutes = require("./routes/auth")
 const requireAuth = require("./middleware/requireAuth")
+const aiRoutes = require("./routes/ai")
 
 const app = express()
 const PORT = process.env.PORT || 5000
@@ -29,6 +30,7 @@ const authLimiter = rateLimit({
 
 // Auth routes
 app.use("/api/auth", authLimiter, authRoutes)
+app.use("/api/ai", aiRoutes)
 
 // ─── PRODUCT ROUTES ───────────────────────────────────
 

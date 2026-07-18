@@ -8,7 +8,7 @@ function Home() {
       <a href="/products" style={{ marginTop: "20px", background: "#16a34a", color: "white", padding: "12px 24px", borderRadius: "8px", textDecoration: "none" }}>
         View Products
       </a>
-    </div>
+    </div> 
   )
 }
 

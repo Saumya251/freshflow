@@ -1,3 +1,4 @@
+
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 
@@ -9,6 +10,8 @@ import About from "./pages/About";
 import Products from "./pages/Products";
 import Navbar from "./components/Navbar";
 import ComponentDemo from "./pages/ComponentDemo";
+
+import AIAnalysis from "./pages/AIAnalysis"
 
 function App() {
   const [darkMode, setDarkMode] = useState(
@@ -52,6 +55,11 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/about" element={<About />} />
           <Route path="/demo" element={<ComponentDemo />} />
+          <Route path="/ai" element={
+  <ProtectedRoute>
+    <AIAnalysis />
+  </ProtectedRoute>
+} />
         </Routes>
       </div>
     </BrowserRouter>

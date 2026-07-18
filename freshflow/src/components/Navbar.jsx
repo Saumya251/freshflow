@@ -18,6 +18,7 @@ function Navbar() {
         <Link to="/" style={{ color: "white", textDecoration: "none" }}>Home</Link>
         <Link to="/products" style={{ color: "white", textDecoration: "none" }}>Products</Link>
         <Link to="/about" style={{ color: "white", textDecoration: "none" }}>About</Link>
+        <Link to="/ai" style={{ color: "white", textDecoration: "none" }}>🤖 AI Analyzer</Link>
         {token ? (
           <>
             <span style={{ color: "white", fontSize: "0.9rem" }}>{user?.email}</span>
