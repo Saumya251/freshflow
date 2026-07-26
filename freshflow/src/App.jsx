@@ -1,6 +1,7 @@
 import ProtectedRoute from "./components/ProtectedRoute"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
+import Dashboard from "./pages/Dashboard"
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -55,11 +56,8 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/about" element={<About />} />
           <Route path="/demo" element={<ComponentDemo />} />
-          <Route path="/ai" element={
-  <ProtectedRoute>
-    <AIAnalysis />
-  </ProtectedRoute>
-} />
+          <Route path="/ai" element={<ProtectedRoute> <AIAnalysis /></ProtectedRoute>} />
+          <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /></ProtectedRoute>} />
         </Routes>
       </div>
     </BrowserRouter>

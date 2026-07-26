@@ -16,6 +16,7 @@ function Navbar() {
       <h1 style={{ color: "white", margin: 0 }}>🌿 FreshFlow</h1>
       <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
         <Link to="/" style={{ color: "white", textDecoration: "none" }}>Home</Link>
+        <Link to="/dashboard" style={{ color: "white", textDecoration: "none" }}>Dashboard</Link>
         <Link to="/products" style={{ color: "white", textDecoration: "none" }}>Products</Link>
         <Link to="/about" style={{ color: "white", textDecoration: "none" }}>About</Link>
         <Link to="/ai" style={{ color: "white", textDecoration: "none" }}>🤖 AI Analyzer</Link>
