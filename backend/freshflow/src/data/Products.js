@@ -5,4 +5,4 @@ const products = [
   { id: 4, name: "Green Peas", origin: "Uttar Pradesh, India", status: "Fresh", date: "2025-06-11" },
 ]
 
-export default products
+export default products;
