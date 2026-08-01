@@ -15,7 +15,7 @@ function Dashboard() {
       navigate("/login")
       return
     }
-    axios.get("http://localhost:5000/api/products")
+    axios.get(" ${import.meta.env.VITE_API_URL}/api/products")
       .then((res) => {
         const data = res.data
         setProducts(data)

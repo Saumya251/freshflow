@@ -16,7 +16,7 @@ function Products() {
 
   const fetchProducts = () => {
     setLoading(true)
-    axios.get("http://localhost:5000/api/products")
+    axios.get(" ${import.meta.env.VITE_API_URL}/api/products")
       .then((res) => { setProducts(res.data); setLoading(false) })
       .catch(() => { setError("Failed to load products"); setLoading(false) })
   }
@@ -33,12 +33,12 @@ function Products() {
     try {
       const token = localStorage.getItem("token")
       if (editingProduct) {
-        await axios.put(`http://localhost:5000/api/products/${editingProduct._id}`, formData, {
+        await axios.put(` ${import.meta.env.VITE_API_URL}/api/products/${editingProduct._id}`, formData, {
           headers: { Authorization: `Bearer ${token}` }
         })
         setSuccessMsg("Product updated successfully!")
       } else {
-        await axios.post("http://localhost:5000/api/products", formData, {
+        await axios.post(" ${import.meta.env.VITE_API_URL}/api/products", formData, {
           headers: { Authorization: `Bearer ${token}` }
         })
         setSuccessMsg("Product added successfully!")
@@ -69,7 +69,7 @@ function Products() {
     if (!window.confirm("Are you sure you want to delete this product?")) return
     try {
       const token = localStorage.getItem("token")
-      await axios.delete(`http://localhost:5000/api/products/${id}`, {
+      await axios.delete(` ${import.meta.env.VITE_API_URL}/api/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setSuccessMsg("Product deleted successfully!")

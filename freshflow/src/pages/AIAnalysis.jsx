@@ -25,7 +25,7 @@ function AIAnalysis() {
     try {
       const token = localStorage.getItem("token")
       const res = await axios.post(
-        "http://localhost:5000/api/ai/analyze",
+        " ${import.meta.env.VITE_API_URL}/api/ai/analyze",
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       )
