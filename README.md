@@ -17,3 +17,25 @@ Product model fields:
 3. Get your connection string from Connect → Drivers
 4. Add MONGO_URI to your .env file
 5. Run npm run dev — Mongoose connects automatically
+
+6. ## 🚀 Deployment
+
+### Live URLs
+- **Frontend:** https://freshflow-hu4s.vercel.app
+- **Backend:** https://freshflow-api.onrender.com
+- **GitHub:** https://github.com/Saumya251/freshflow
+
+### Tech Stack
+- **Frontend:** React, Vite, Tailwind CSS, React Router
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB Atlas (Mongoose ODM)
+- **Authentication:** JWT + bcrypt
+- **AI Feature:** Google Gemini API
+- **Frontend Hosting:** Vercel
+- **Backend Hosting:** Render
+
+### Known Limitations (Free Tier)
+- Render free tier spins down after 15 minutes of inactivity
+- First request after idle period takes 30-60 seconds to wake up
+- Gemini API has daily request limits on free tier
+- MongoDB Atlas M0 free cluster has 512MB storage limit
