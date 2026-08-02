@@ -15,7 +15,7 @@ function Dashboard() {
       navigate("/login")
       return
     }
-    axios.get(`${import.meta.env.VITE_API_URL}/api/products`)
+    axios.get(`https://freshflow-api.onrender.com/api/products`)
   .then((res) => {
     const data = Array.isArray(res.data) ? res.data : []
     setProducts(data)

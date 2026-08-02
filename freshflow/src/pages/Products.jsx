@@ -16,7 +16,7 @@ function Products() {
 
   const fetchProducts = () => {
     setLoading(true)
-    axios.get(`${import.meta.env.VITE_API_URL}/api/products`)
+    axios.get(`https://freshflow-api.onrender.com/api/products`)
   .then((res) => { 
     const data = Array.isArray(res.data) ? res.data : []
     setProducts(data)
@@ -37,12 +37,12 @@ function Products() {
     try {
       const token = localStorage.getItem("token")
       if (editingProduct) {
-        await axios.put(` ${import.meta.env.VITE_API_URL}/api/products/${editingProduct._id}`, formData, {
+        await axios.put(` https://freshflow-api.onrender.com/api/products/${editingProduct._id}`, formData, {
           headers: { Authorization: `Bearer ${token}` }
         })
         setSuccessMsg("Product updated successfully!")
       } else {
-        await axios.post(" ${import.meta.env.VITE_API_URL}/api/products", formData, {
+        await axios.post(" https://freshflow-api.onrender.com/api/products", formData, {
           headers: { Authorization: `Bearer ${token}` }
         })
         setSuccessMsg("Product added successfully!")
@@ -73,7 +73,7 @@ function Products() {
     if (!window.confirm("Are you sure you want to delete this product?")) return
     try {
       const token = localStorage.getItem("token")
-      await axios.delete(` ${import.meta.env.VITE_API_URL}/api/products/${id}`, {
+      await axios.delete(` https://freshflow-api.onrender.com/api/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setSuccessMsg("Product deleted successfully!")
