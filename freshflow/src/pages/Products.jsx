@@ -16,8 +16,12 @@ function Products() {
 
   const fetchProducts = () => {
     setLoading(true)
-    axios.get(" ${import.meta.env.VITE_API_URL}/api/products")
-      .then((res) => { setProducts(res.data); setLoading(false) })
+    axios.get(`${import.meta.env.VITE_API_URL}/api/products`)
+  .then((res) => { 
+    const data = Array.isArray(res.data) ? res.data : []
+    setProducts(data)
+    setLoading(false) 
+  })
       .catch(() => { setError("Failed to load products"); setLoading(false) })
   }
 

@@ -15,17 +15,17 @@ function Dashboard() {
       navigate("/login")
       return
     }
-    axios.get(" ${import.meta.env.VITE_API_URL}/api/products")
-      .then((res) => {
-        const data = res.data
-        setProducts(data)
-        setStats({
-          fresh: data.filter(p => p.status === "Fresh").length,
-          processing: data.filter(p => p.status === "Processing").length,
-          shipped: data.filter(p => p.status === "Shipped").length,
-        })
-        setLoading(false)
-      })
+    axios.get(`${import.meta.env.VITE_API_URL}/api/products`)
+  .then((res) => {
+    const data = Array.isArray(res.data) ? res.data : []
+    setProducts(data)
+    setStats({
+      fresh: data.filter(p => p.status === "Fresh").length,
+      processing: data.filter(p => p.status === "Processing").length,
+      shipped: data.filter(p => p.status === "Shipped").length,
+    })
+    setLoading(false)
+  })
       .catch(() => setLoading(false))
   }, [])
 
